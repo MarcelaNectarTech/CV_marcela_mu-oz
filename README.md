@@ -138,9 +138,9 @@ exigidos por entidades públicas.
 - Tecnologo en Animacion 3d
 
 ## 💡 Habilidades
-- **Habilidad 1**
-- **Habilidad 2**
-- **Habilidad 3**
+- **Gestión del tiempo**
+- **Pensamiento crítico**
+- **Creatividad**
 
 ---
 
