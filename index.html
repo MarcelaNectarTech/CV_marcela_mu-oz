@@ -1,74 +1,305 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoja de Vida</title>
+    <title>Hoja de Vida - Marcela Nectar</title>
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            background-color: #f4f6f8;
+            @bottom-right {
+                content: "Pág. " counter(page) " de " counter(pages);
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 8pt;
+                color: #718096;
+            }
+        }
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #2d3748;
+            background-color: #f4f6f8;
+            font-size: 10pt;
+            line-height: 1.5;
         }
-        .container {
-            max-width: 800px;
-            background: white;
-            padding: 20px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
+        /* Header Banner Style */
+        .header-banner {
+            margin: -0mm -12mm 25px -12mm;
+            padding: 45px 20px 30px 20px;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #ffffff;
+            border-bottom: 5px solid #319795;
+            text-align: center;
         }
-        h1, h2 {
-            color: #333;
+        .header-banner h1 {
+            margin: 0 0 8px 0;
+            font-size: 24pt;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
         }
-        .section {
-            margin-bottom: 20px;
+        .header-banner .subtitle {
+            font-size: 13pt;
+            color: #4fd1c5;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
         }
-        .contacto, .experiencia, .educacion, .habilidades {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
+        
+        /* Contact Info Bar (using table for WeasyPrint layout alignment) */
+        .contact-table {
+            width: 100%;
+            margin: 0 auto;
+            max-width: 700px;
+            border-collapse: collapse;
         }
+        .contact-table td {
+            text-align: center;
+            color: #e2e8f0;
+            font-size: 9.5pt;
+            padding: 4px 10px;
+        }
+        .contact-table a {
+            color: #4fd1c5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Layout Structure via Table */
+        .main-layout {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .main-layout td {
+            vertical-align: top;
+        }
+        .sidebar {
+            width: 30%;
+            padding-right: 20px;
+            border-right: 2px solid #e2e8f0;
+        }
+        .content-area {
+            width: 70%;
+            padding-left: 25px;
+        }
+
+        /* Section Headings */
+        h2 {
+            font-size: 13pt;
+            color: #1a202c;
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #319795;
+            letter-spacing: 0.5px;
+            page-break-after: avoid;
+        }
+        
+        h3 {
+            font-size: 11pt;
+            color: #2c5282;
+            margin: 0 0 4px 0;
+            page-break-after: avoid;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            padding: 2px 8px;
+            font-size: 8.5pt;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        /* Timeline Items */
+        .timeline-item {
+            margin-bottom: 22px;
+            page-break-inside: avoid;
+        }
+        .timeline-item p {
+            margin: 5px 0 0 0;
+            color: #4a5568;
+            font-size: 9.5pt;
+            text-align: justify;
+        }
+        .job-title {
+            font-weight: bold;
+            color: #4a5568;
+            font-size: 10pt;
+            margin-bottom: 2px;
+        }
+
+        /* Lists and Badges */
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+        .skill-item {
+            background-color: #ffffff;
+            border-left: 4px solid #319795;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2d3748;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .edu-item {
+            background-color: #ffffff;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            page-break-inside: avoid;
+        }
+        .edu-item .title {
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .edu-item .inst {
+            color: #718096;
+            font-size: 9pt;
+            margin-top: 2px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Nombre Completo</h1>
-        <p><strong>Profesión:</strong> Tu profesión</p>
+
+    <!-- Header / Contact Information -->
+    <div class="header-banner">
+        <h1>Marcela Nectar</h1>
+        <div class="subtitle">Analista y desarrollador de software</div>
         
-        <div class="section contacto">
-            <h2>Contacto</h2>
-            <p><strong>Teléfono:</strong> +57 123 456 7890</p>
-            <p><strong>Email:</strong> correo@ejemplo.com</p>
-            <p><strong>LinkedIn:</strong> linkedin.com/in/tuusuario</p>
-        </div>
-
-        <div class="section experiencia">
-            <h2>Experiencia Laboral</h2>
-            <p><strong>Empresa XYZ</strong> (2020 - Actualidad)</p>
-            <p>Puesto ocupado y descripción breve.</p>
-            
-            <p><strong>Empresa ABC</strong> (2018 - 2020)</p>
-            <p>Puesto ocupado y descripción breve.</p>
-        </div>
-
-        <div class="section educacion">
-            <h2>Educación</h2>
-            <p><strong>Universidad Ejemplo</strong> (2014 - 2018)</p>
-            <p>Título obtenido.</p>
-        </div>
-
-        <div class="section habilidades">
-            <h2>Habilidades</h2>
-            <ul>
-                <li>Habilidad 1</li>
-                <li>Habilidad 2</li>
-                <li>Habilidad 3</li>
-            </ul>
-        </div>
+        <table class="contact-table">
+            <tr>
+                <td><strong>📞 Teléfono:</strong> +57 3125909284</td>
+                <td><strong>✉️ Email:</strong> <a href="mailto:marcelanectar87@gmail.com">marcelanectar87@gmail.com</a></td>
+                <td><strong>🔗 LinkedIn:</strong> <a href="https://linkedin.com/in/marcelanectar">marcelanectar</a></td>
+            </tr>
+        </table>
     </div>
+
+    <!-- Main Dynamic Split Layout -->
+    <table class="main-layout">
+        <tr>
+            <!-- Left Sidebar columns (Skills & Education) -->
+            <td class="sidebar">
+                <h2>💡 Habilidades</h2>
+                <ul class="skill-list">
+                    <li class="skill-item">Gestión del tiempo</li>
+                    <li class="skill-item">Pensamiento crítico</li>
+                    <li class="skill-item">Creatividad</li>
+                    <li class="skill-item">Modelado 3D (Revit/SketchUp)</li>
+                    <li class="skill-item">Diseño Técnico (AutoCAD)</li>
+                    <li class="skill-item">Desarrollo de Software</li>
+                </ul>
+
+                <h2>🎓 Educación</h2>
+                <div class="edu-item">
+                    <div class="title">Tecnólogo en Animación 3D</div>
+                    <div class="inst">Servicio Nacional de Aprendizaje</div>
+                    <div class="date-badge" style="margin-top:5px;">2023 - 2025</div>
+                </div>
+                
+                <div class="edu-item">
+                    <div class="title">Tecnólogo en Técnicas de Desarrollo Gráfico de Proyectos de Construcción</div>
+                    <div class="inst">Servicio Nacional de Aprendizaje</div>
+                    <div class="date-badge" style="margin-top:5px;">2008 - 2011</div>
+                </div>
+            </td>
+
+            <!-- Right Content Area (Work Experience) -->
+            <td class="content-area">
+                <h2>🏢 Experiencia Laboral</h2>
+
+                <div class="timeline-item">
+                    <h3>SPEM - COLOMBIA</h3>
+                    <div class="date-badge">2021 - 2024</div>
+                    <div class="job-title">CAD - Cadista</div>
+                    <p>Modelado tridimensional en SketchUp y Revit para representar sistemas electromecánicos. Elaboración de planos técnicos detallados de instalaciones eléctricas y mecánicas: distribución de equipos, rutas de cableado, sistemas de ventilación y componentes estructurales. Coordinación con ingenieros para entregar documentación precisa, lista para revisión técnica y ejecución.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Municipalidad de Carabayllo - Medio Ambiente</h3>
+                    <div class="date-badge">2021 (Lima, Perú)</div>
+                    <div class="job-title">Secretaria</div>
+                    <p>Apoyo administrativo en la gestión de proyectos ambientales municipales. Organización de expedientes, redacción de documentos oficiales, atención a proveedores y coordinación interna para el seguimiento de actividades vinculadas a gestión de residuos, arborización, fiscalización ambiental y campañas de sensibilización.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Municipalidad de Carabayllo - Obras Públicas</h3>
+                    <div class="date-badge">2020 (Lima, Perú)</div>
+                    <div class="job-title">Auxiliar Administrativo</div>
+                    <p>Apoyo en la gestión documental y administrativa de la cartera de inversiones públicas. Organización de expedientes técnicos, seguimiento de cronogramas y coordinación con las unidades formuladoras para la consolidación de proyectos conforme a los lineamientos de Invierte.pe.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Municipalidad de Carabayllo - Obras Públicas</h3>
+                    <div class="date-badge">2020 (Lima, Perú)</div>
+                    <div class="job-title">Técnico Perfilista</div>
+                    <p>Elaboración de planos técnicos en AutoCAD como soporte gráfico para la formulación de perfiles de inversión pública. Desarrollo de plantas, cortes y detalles constructivos requeridos en expedientes técnicos, en coordinación con el área de presupuesto y planificación.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>AGRO GESTION S.A.C</h3>
+                    <div class="date-badge">2012 - 2016 (Lima, Perú)</div>
+                    <div class="job-title">CAD - Cadista</div>
+                    <p>Elaboración de planos técnicos en AutoCAD para sistemas de riego tecnificado por goteo y aspersión. Desarrollo de trazados hidráulicos, distribución de tuberías, ubicación de válvulas, emisores y equipos de control, conforme a especificaciones agronómicas.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>CALIDDA</h3>
+                    <div class="date-badge">2012 (Lima, Perú)</div>
+                    <div class="job-title">CAD - Cadista</div>
+                    <p>Elaboración de planos técnicos en AutoCAD para la implementación del proyecto P&ID (Diagramas de Tuberías e Instrumentación) del cliente Calidda. Desarrollo de documentación gráfica detallada conforme a especificaciones técnicas del sistema de distribución de gas natural.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>XDIEZ INGENIEROS S.A.C</h3>
+                    <div class="date-badge">2012 (Lima, Perú)</div>
+                    <div class="job-title">CAD - Cadista</div>
+                    <p>Elaboración de planos arquitectónicos en AutoCAD para la adecuación de espacios destinados a cajeros automáticos del BCP. Desarrollo de plantas, cortes, fachadas y detalles constructivos, incluyendo trazados eléctricos y de seguridad electrónica.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Allcon S.A.C</h3>
+                    <div class="date-badge">2011 (Lima, Perú)</div>
+                    <div class="job-title">CAD - Cadista</div>
+                    <p>Elaboración de planos arquitectónicos en AutoCAD: fachadas, cortes, plantas y detalles constructivos. Desarrollo de trazados para redes de agua y desagüe, cumpliendo normativas técnicas.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>GEOBRA S.A.C</h3>
+                    <div class="date-badge">2011 (Lima, Perú)</div>
+                    <div class="job-title">CAD - Cadista / Auxiliar de Topografía</div>
+                    <p>Apoyo en labores de campo para levantamientos topográficos en proyectos de infraestructura vial, saneamiento y urbanismo. Colaboración en la toma de datos con estación total, nivel y GPS, así como procesamiento básico de información.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>AMBIDES</h3>
+                    <div class="date-badge">2010 (Lima, Perú)</div>
+                    <div class="job-title">CAD - Cadista</div>
+                    <p>Elaboración de planos topográficos utilizando AutoCAD para expedientes técnicos de obras civiles y proyectos ambientales. Representación precisa de curvas de nivel, perfiles longitudinales y transversales.</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
 </body>
-    
-<script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2025/04/05/02/20250405021404-CM8Q1FN6.js"></script>
-    
 </html>
